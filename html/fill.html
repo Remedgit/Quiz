@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Number Blocks and Quiz Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding-top: 70px;
+  }
+  .cartoon-image {
+    background-image: url('http://eb118-file.cdn.bcebos.com/upload/a3f1c13f0d3744649d383072fcb47da0_1514939438.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+  }
+  .number-block {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin: 5px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+  #input-area, .mdui-textfield-input {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 35px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .mdui-btn-block {
+    margin-top: 20px;
+  }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div class="cartoon-image">
+    <!-- Cartoon image is set via CSS background-image -->
+  </div>
+  
+  <div class="question">
+    <p id="questionText">1234567,_______</p>
+  </div>
+  
+  <div id="input-area"></div>
+  <div id="number-container">
+    <!-- Number blocks -->
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">1</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">2</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">3</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">4</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">5</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">6</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">7</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">8</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">9</div>
+    <div class="number-block" onclick="moveNumberToInputBlock(this)">0</div>
+    <!-- Add additional number blocks as needed -->
+  </div>
+
+  <div class="mdui-col">
+    <button class="mdui-btn mdui-btn-block mdui-color-blue mdui-ripple" onclick="checkAnswer()">完成</button>
+  </div> 
+</div>
+
+<script>
+function moveNumberToInputBlock(element) {
+  var inputArea = document.getElementById('input-area');
+  if (element.parentElement.id === 'number-container') {
+    inputArea.appendChild(element);
+    element.onclick = function() { moveNumberToInputBlock(this); };
+  } else {
+    document.getElementById('number-container').appendChild(element);
+  }
+}
+
+function checkAnswer() {
+  var inputArea = document.getElementById('input-area');
+  var inputContent = Array.from(inputArea.children).map(el => el.textContent).join('');
+  var expectedValue = "7654321";
+  if (inputContent === expectedValue) {
+    mdui.snackbar({ message: "Good" });
+  } else {
+    mdui.snackbar({ message: "Try Again" });
+  }
+}
+</script>
+
+</body>
+</html>

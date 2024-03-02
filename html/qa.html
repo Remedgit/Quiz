@@ -78,7 +78,7 @@
   .incorrect {  
     background-color: #f44336;  
     color: #fff;  
-  }   
+  }  
 
   .progress-bar-container {  
     width: 100%;  
@@ -88,9 +88,15 @@
     overflow: hidden;  
   }  
   
-  .progress-bar {    
+  .progress-bar {  
+    height: 20px;  
+    background-color: #4CAF50;  
+    width: 0%;  
     text-align: center;  
-  }  
+    line-height: 20px;  
+    color: white;  
+    border-radius: 5px;  
+  }   
 </style>  
 <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 </head>  
@@ -111,10 +117,11 @@
     <li class="mdui-ripple mdui-hoverable" onclick="selectAnswer(3)">Rome</li>  
   </ul>  
     
-  <div class="mdui-progress">  
-    <div class="mdui-progress-determinate progress-bar" id="progressBar"></div>  
+  <div class="progress-bar-container">  
+    <div class="progress-bar" id="progressBar"></div>  
   </div>  
 </div>  
+   
   
 <script>  
   var currentQuestionIndex = 0;  
@@ -124,7 +131,7 @@
     { question: "What is the capital of Fra?", correctAnswerIndex: 0 },
     { question: "What is the capital of Fran?", correctAnswerIndex: 0 },
     { question: "What is the capital of France?", correctAnswerIndex: 0 },  
-    // Add more questions here  
+    // Add more questions here   
   ];  
   var progressBar = document.getElementById('progressBar');  
   
