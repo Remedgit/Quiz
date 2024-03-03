@@ -1,0 +1,124 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>MDQuiz Demo-Remedgit</title>  
+<style>  
+  body {  
+    font-family: Arial, sans-serif;  
+    background-color: #f2f2f2;  
+  }  
+    
+  .container {  
+    max-width: 600px;  
+    margin: 0 auto;  
+    padding: 20px;  
+    background-color: #fff;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    position: relative; /* 为卡通图片定位 */  
+    padding-top: 70px; /* 预留出图片的空间 */  
+  }  
+    
+  .cartoon-image {  
+  position: absolute;  
+  top: 0; /* 图片顶部与容器顶部对齐 */  
+  left: 0; /* 图片左侧与容器左侧对齐 */  
+  width: 100%; /* 图片宽度占满整行 */  
+  height: 70px; /* 图片高度设置为所需大小 */  
+  background-image: url('http://eb118-file.cdn.bcebos.com/upload/a3f1c13f0d3744649d383072fcb47da0_1514939438.png'); /* 设置背景图片 */  
+  background-size: contain; /* 保持图片比例，使其适应容器宽度 */  
+  background-repeat: no-repeat; /* 不重复图片 */  
+}
+    
+  .cartoon-image img {  
+    width: 50px; /* 设置图片宽度 */  
+    height: auto; /* 保持图片比例 */  
+  }  
+
+  .question {  
+    margin-bottom: 20px;  
+  }  
+    
+  .options {  
+  list-style-type: none;  
+  padding: 0;  
+}  
+  
+.options li {  
+  cursor: pointer;  
+  padding: 5px 10px;  
+  margin: 5px 0;  
+  background-color: #f0f0f0; /* 浅色背景 */  
+  color: #333;  
+  border-radius: 5px;  
+  transition: background-color 0.3s ease;  
+}  
+  
+.options li:hover {  
+  background-color: #87CEEB; /* 亮色hover背景 */  
+  color: white; /* hover时的文本颜色 */  
+}  
+  
+.options li.selected {  
+  background-color: #4CAF50; /* 选中背景 */  
+  color: white; /* 选中时的文本颜色 */  
+}  
+  
+.options li.incorrect {  
+  background-color: #f44336; /* 错误背景 */  
+  color: white; /* 错误时的文本颜色 */  
+}
+    
+  .correct {  
+    background-color: #4CAF50;  
+    color: #fff;  
+  }  
+    
+  .incorrect {  
+    background-color: #f44336;  
+    color: #fff;  
+  }  
+ 
+</style>  
+<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+</head>  
+<body>  
+  
+<div class="container">  
+  <div class="cartoon-image">  
+  </div>  
+    
+  <div class="question">  
+    <p id="questionText">你的年级是 ___</p>  
+  </div>  
+    
+  <ul class="options">  
+    <li id="btn1" class="mdui-ripple mdui-hoverable" onclick="selectAnswer(0)">初级</li>  
+    <li id="btn2" class="mdui-ripple mdui-hoverable" onclick="selectAnswer(1)">中级</li> 
+    <li id="btn3" class="mdui-ripple mdui-hoverable" onclick="selectAnswer(2)">高级</li> 
+  </ul>  
+       <p>Remedgit.IO</p>
+</div>  
+
+  
+<script>  
+  var questions = [  
+    { question: "你的年级是 ___"},
+    { question: "创建一个档案吗?"},
+  ];    
+  
+  function selectAnswer(answerIndex) {  
+      mdui.snackbar({
+  message: '很好'
+});
+      document.getElementById('questionText').textContent = "要创建一个档案吗"
+      document.getElementById('btn1').textContent = "好"
+      document.getElementById('btn2').textContent = "好("
+      btn3.remove()
+  }  
+
+</script>  
+<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+</body>  
+</html>
