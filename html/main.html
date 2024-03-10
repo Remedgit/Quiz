@@ -1,0 +1,72 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>我要学语文</title>  
+    <style>  
+        body { margin: 0; }  
+        canvas { display: block; }  
+    </style>  
+</head>  
+<body>  
+    <script src="items/phaser.min.js"></script> 
+    <script>
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '我要学语文', { preload: preload, create: create });
+
+        function preload() {
+
+            game.load.spritesheet('button', 'images/number-buttons-90x90.png', 90,90);
+            //game.load.image('background','assets/misc/starfield.jpg');
+            game.load.audio('sfx', 'sound/fx_mixdown.ogg');
+
+        }
+
+        var button;
+        var background;
+        var fx;
+
+        function create() {
+
+            //  Setting the background colour
+            game.stage.backgroundColor = '#182d3b';
+
+            // The numbers given in parameters are the indexes of the frames, in this order: over, out, down
+            button = game.add.button(game.world.centerX, game.world.centerY, 'button', actionOnClick, this, null, 0, 5);
+
+            //  setting the anchor to the center
+            button.anchor.setTo(0.5, 0.5);
+
+            //  Here we set-up our audio sprite
+            fx = game.add.audio('sfx');
+            fx.allowMultiple = true;
+
+            //  And this defines the markers.
+
+            //  They consist of a key (for replaying), the time the sound starts and the duration, both given in seconds.
+            //  You can also set the volume and loop state, although we don't use them in this example (see the docs)
+
+            fx.addMarker('alien death', 1, 1.0);
+            fx.addMarker('boss hit', 3, 0.5);
+            fx.addMarker('escape', 4, 3.2);
+            fx.addMarker('meow', 8, 0.5);
+            fx.addMarker('numkey', 9, 0.1);
+            fx.addMarker('ping', 10, 1.0);
+            fx.addMarker('death', 12, 4.2);
+            fx.addMarker('shot', 17, 1.0);
+            fx.addMarker('squit', 19, 0.3);
+
+        }
+
+        function actionOnClick () {
+            fx.play("squit");
+            //  Manually changing the frames of the button, i.e, how it will look when you play with it
+            //button.setFrames(5);
+            //等待一秒后 跳出fill.html
+            setTimeout(function () {
+                window.location.href = 'fill.html';
+            }, 200);
+        }
+    </script> 
+</body>  
+</html>
