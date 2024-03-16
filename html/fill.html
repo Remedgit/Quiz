@@ -27,17 +27,37 @@
     width: 100%;
     height: 70px;
   }
-  .number-block {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    margin: 5px;
-    background-color: #f2f2f2;
-    cursor: pointer;
-    transition: all 0.5s ease;
-  }
+  .square-button {
+  background-color: rgba(245, 245, 245, 0.5); /* 灰色的透明背景 */
+  border: 2px solid rgba(245, 245, 245, 0.5);/* 白色边框 */
+  color: #333; /* 按钮文本颜色 */
+  padding: 0; /* 无内边距 */
+  width: 40px; /* 宽度，您可以根据需要调整 */
+  height: 40px; /* 高度，与宽度相同，形成正方形 */
+  font-size: 16px; /* 文本大小 */
+  cursor: pointer;
+  border-radius: 10px; /* 轻微的圆角，您可以根据需要调整 */
+  box-shadow: 0 4px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+  transition: all 0.2s; /* 过渡效果 */
+  display: inline-flex; /* 弹性盒子模型，使用inline-flex让按钮不独占一行 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  text-align: center; /* 文本居中 */
+  outline: none; /* 移除焦点时的轮廓线 */
+  overflow: hidden; /* 防止内容溢出 */
+}
+
+.square-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* 鼠标悬停时提高透明度 */
+}
+
+.square-button:active {
+  background-color: rgba(255, 255, 255, 0.3); /* 按钮被按下时的颜色 */
+  box-shadow: 0 1px rgba(0, 0, 0, 0.1); /* 调整阴影，模仿按下效果 */
+  transform: translateY(1px); /* 按钮被按下时向下移动，模仿按钮被按压的效果 */
+}
+
+
   #input-area, .mdui-textfield-input {
     display: flex;
     flex-wrap: wrap;
@@ -47,12 +67,71 @@
     align-items: center;
     margin-bottom: 10px;
   }
-  .mdui-btn-block {
-    margin-top: 20px;
-  }
+  .button {
+  background-color: #90ee90; /* 浅绿色 */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 0; /* 上下保留一些空间，左右无空间 */
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 4px #999;
+  outline: none; /* 移除焦点时的轮廓线 */
+  width: 100%; /* 使按钮填满容器宽度 */
+  box-sizing: border-box; /* 包含padding和border在内的总宽度 */
+}
+
+.button:active {
+  box-shadow: 0 1px #666;
+  transform: translateY(4px); /* 按钮被按下时向下移动，模拟按钮被按压的效果 */
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #90ee90; /* 浅绿色背景色 */
+  color: #006400; /* 深绿色文字色 */
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  transform: translateX(-50%);
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+}
 </style>
-<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
-<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 </head>
 <body>
 
@@ -68,24 +147,24 @@
   <div id="input-area"></div>
   <div id="number-container">
     <!-- Number blocks -->
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">1</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">2</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">3</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">4</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">5</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">6</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">7</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">8</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">9</div>
-    <div class="number-block" onclick="moveNumberToInputBlock(this)">0</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">1</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">2</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">3</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">4</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">5</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">6</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">7</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">8</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">9</div>
+    <div class="square-button" onclick="moveNumberToInputBlock(this)">0</div>
     <!-- Add additional number blocks as needed -->
   </div>
+  <br>
 
-  <div class="mdui-col">
-    <button class="mdui-btn mdui-btn-block mdui-color-blue mdui-ripple" onclick="checkAnswer()">完成</button>
-  </div> 
+    <button id="myButton" class="button" onclick="checkAnswer()">完成</button>
+
 </div>
-
+<div id="snackbar">真棒!</div>
 <script>
 function moveNumberToInputBlock(element) {
   var inputArea = document.getElementById('input-area');
@@ -102,12 +181,12 @@ function checkAnswer() {
   var inputContent = Array.from(inputArea.children).map(el => el.textContent).join('');
   var expectedValue = "7654321";
   if (inputContent === expectedValue) {
-    mdui.snackbar({ message: "Good" });
+    snackbar.className = "show";
+    
   } else {
-    mdui.snackbar({ message: "Try Again" });
+    
   }
 }
 </script>
-
 </body>
 </html>
