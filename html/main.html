@@ -1,72 +1,95 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>我要学语文</title>  
-    <style>  
-        body { margin: 0; }  
-        canvas { display: block; }  
-    </style>  
-</head>  
-<body>  
-    <script src="items/phaser.min.js"></script> 
-    <script>
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, '我要学语文', { preload: preload, create: create });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,-scale=1.0">
+<title>Circle Buttons in S-shape</title>
+<style>
+	#sShapeContainer {
+  position: relative;
+  width: 100%;
+  height: 800px; /* Adjust based on your requirements */
+}
 
-        function preload() {
+.circle-button {
+ -color: rgba(245, 245, 245, 0.5);
+  border: 2px solid rgba(245, 245, 245, 0.5);
+  color: #333;
+ : 0;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%; /* Make it round */
+  box-shadow: 0 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  display: inline-flex;
+ -content: center;
+  align-items: center;
+  text-align: center;
+  outline: none;
+}
 
-            game.load.spritesheet('button', 'images/number-buttons-90x90.png', 90,90);
-            //game.load.image('background','assets/misc/starfield.jpg');
-            game.load.audio('sfx', 'sound/fx_mixdown.ogg');
+.circle-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
+.circle-button:active {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+}
+/* 前面的样式保持不变 */
+
+.divider {
+  width: 100%; /* 分割线宽度 */
+  height: 2px; /* 分割线高度 */
+  background-color: #333; /* 分割线颜色 */
+  position: absolute;
+}
+
+</style>
+</head>
+<body>
+
+<div id="sShapeContainer"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('sShapeContainer');
+    const numButtons = 50; // 总按钮数
+    const containerWidth = container.offsetWidth;
+    const amplitudeX = containerWidth / 10; // 减小幅度使S形更平缓
+    const containerHeight = container.offsetHeight;
+    // 针对S形曲线的垂直间距进行了调整
+    const buttonSpacing = containerHeight / (numButtons / 4);
+
+    for (let i = 0; i < numButtons; i++) {
+        const button = document.createElement('button');
+        button.className = 'circle-button';
+        button.textContent = i + 1;
+
+        // 修正了计算S形路径的横坐标的公式
+        const x = amplitudeX * Math.sin(i / (numButtons / (Math.PI * 4))) + (containerWidth / 2 - amplitudeX);
+        // 调整y坐标计算，确保垂直间距足够大
+        const y = i * buttonSpacing;
+
+        button.style.position = 'absolute'; // 使用绝对定位
+        button.style.left = `${x}px`;
+        button.style.top = `${y}px`;
+
+        container.appendChild(button);
+
+        // 每20个按钮添加一条分割线，以增加可读性
+        if (i % 20 === 19) {
+            const divider = document.createElement('div');
+            divider.className = 'divider';
+            divider.style.top = `${y + buttonSpacing / 2}px`; // 分割线位于按钮组之间
+            container.appendChild(divider);
         }
+    }
+});
 
-        var button;
-        var background;
-        var fx;
-
-        function create() {
-
-            //  Setting the background colour
-            game.stage.backgroundColor = '#182d3b';
-
-            // The numbers given in parameters are the indexes of the frames, in this order: over, out, down
-            button = game.add.button(game.world.centerX, game.world.centerY, 'button', actionOnClick, this, null, 0, 5);
-
-            //  setting the anchor to the center
-            button.anchor.setTo(0.5, 0.5);
-
-            //  Here we set-up our audio sprite
-            fx = game.add.audio('sfx');
-            fx.allowMultiple = true;
-
-            //  And this defines the markers.
-
-            //  They consist of a key (for replaying), the time the sound starts and the duration, both given in seconds.
-            //  You can also set the volume and loop state, although we don't use them in this example (see the docs)
-
-            fx.addMarker('alien death', 1, 1.0);
-            fx.addMarker('boss hit', 3, 0.5);
-            fx.addMarker('escape', 4, 3.2);
-            fx.addMarker('meow', 8, 0.5);
-            fx.addMarker('numkey', 9, 0.1);
-            fx.addMarker('ping', 10, 1.0);
-            fx.addMarker('death', 12, 4.2);
-            fx.addMarker('shot', 17, 1.0);
-            fx.addMarker('squit', 19, 0.3);
-
-        }
-
-        function actionOnClick () {
-            fx.play("squit");
-            //  Manually changing the frames of the button, i.e, how it will look when you play with it
-            //button.setFrames(5);
-            //等待一秒后 跳出fill.html
-            setTimeout(function () {
-                window.location.href = 'fill.html';
-            }, 200);
-        }
-    </script> 
-</body>  
+</script>
+</body>
 </html>
